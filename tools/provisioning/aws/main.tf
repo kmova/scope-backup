@@ -16,6 +16,13 @@ resource "aws_security_group" "allow_ssh" {
     cidr_blocks = ["${var.client_ip}/32"]
   }
 
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags {
     Name      = "${var.name}_allow_ssh"
     App       = "${var.app}"
@@ -133,5 +140,9 @@ resource "aws_instance" "tf_test_vm" {
     Name      = "${var.name}-${count.index}"
     App       = "${var.app}"
     CreatedBy = "terraform"
+  }
+
+  metadata_options {
+    http_tokens = "required"
   }
 }
