@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:2.9
 WORKDIR /home/weave
 ADD shout /home/weave/
 EXPOSE 8090
